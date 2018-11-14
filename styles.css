@@ -1,0 +1,32 @@
+.game {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: space-around;
+}
+
+#monster {
+    width: 400px;
+    height: 400px;
+    background-color: rgb(75, 0, 75);
+}
+
+#healthContainer {
+    width: 400px;
+    height: 50px;
+    background-image: linear-gradient(90deg, red 90%, #ddd 90%);
+    border: 1px black solid;
+    margin: 32px;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-color: #ddd;
+}
