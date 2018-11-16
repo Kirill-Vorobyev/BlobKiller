@@ -1,0 +1,24 @@
+{
+  "name": "blob-killer",
+  "version": "1.0.0",
+  "description": "A co-op mini game about killing blobs.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kirill-Vorobyev/BlobKiller.git"
+  },
+  "author": "Kirill Vorobyev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kirill-Vorobyev/BlobKiller/issues"
+  },
+  "homepage": "https://github.com/Kirill-Vorobyev/BlobKiller#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "socket.io": "^2.1.1"
+  }
+}
