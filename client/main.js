@@ -10,22 +10,21 @@ function main(){
     game.append(monster);
     monster.on('click',()=>{takeDamage(monster,healthBar);});
 
-    socket.on('monster-health',(health,brightness)=>{
+    socket.on('monster-health',(health,rgb)=>{
         changeMonsterHealth(healthBar,health);
-        changeMonsterColor(monster,brightness);
+        changeMonsterColor(monster,rgb);
     });
 
-    socket.on('monster-update',(health,maxHealth,shape,brightness)=>{
-        console.log(health,maxHealth,shape);
+    socket.on('monster-update',(health,maxHealth,shape,rgb)=>{
         updateMonsterHealth(healthBar,health,maxHealth);
         changeMonsterShape(monster,shape);
-        changeMonsterColor(monster,brightness);
+        changeMonsterColor(monster,rgb);
     });
 
-    socket.on('monster-respawn',(health,shape,brightness)=>{
+    socket.on('monster-respawn',(health,shape,rgb)=>{
         respawnMonster(healthBar,health);
         changeMonsterShape(monster,shape);
-        changeMonsterColor(monster,brightness);
+        changeMonsterColor(monster,rgb);
     });
 }
 
@@ -41,12 +40,12 @@ function makeHealthBarContainer(){
 }
 
 function takeDamage(monster,healthBar){
-    changeMonsterColor(monster);
     socket.emit('monster-clicked');
 }
 
-function changeMonsterColor(monster,brightness){
-    monster.css({'background-color': 'rgb('+brightness+',0,'+brightness+')'});
+function changeMonsterColor(monster,rgb){
+    console.log(rgb);
+    monster.css({'background-color': 'rgb('+rgb+')'});
 }
 
 function changeMonsterShape(monster,shape){

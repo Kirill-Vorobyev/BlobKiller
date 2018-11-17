@@ -6,19 +6,19 @@ exports.run = (io,game) => {
                 game.monster.getHealth(),
                 game.monster.getMaxHealth(),
                 game.monster.getShape(),
-                game.monster.getBrightness());
+                game.monster.getColor());
 
         socket.on('monster-clicked',()=>{
-            console.log(socket.client.conn.remoteAddress,'monster clicked');
+            //console.log(socket.client.conn.remoteAddress,'monster clicked');
             game.monster.takeDamage(1);
             if(game.monster.getHealth() > 0){
-                io.emit('monster-health',game.monster.getHealth(),game.monster.getBrightness());
+                io.emit('monster-health',game.monster.getHealth(),game.monster.getColor());
             }else{
                 game.respawnMonster();
                 io.emit('monster-respawn',
                         game.monster.getHealth(),
                         game.monster.getShape(),
-                        game.monster.getBrightness());
+                        game.monster.getColor());
             }
         });
 
