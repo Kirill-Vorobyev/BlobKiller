@@ -10,9 +10,10 @@ function main(){
     game.append(monster);
     monster.on('click',()=>{takeDamage(monster,healthBar);});
 
-    socket.on('monster-health',(health,rgb)=>{
+    socket.on('monster-health',(health,rgb,dmg)=>{
         changeMonsterHealth(healthBar,health);
         changeMonsterColor(monster,rgb);
+        showDamageNumber(monster,dmg);
     });
 
     socket.on('monster-update',(health,maxHealth,shape,rgb)=>{
@@ -35,7 +36,7 @@ function makeMonster(){
 
 function makeHealthBarContainer(){
     let health = 20;
-    let healthBarContainer = $('<div/>').attr({id:'healthContainer','health':health,'maxHealth':health}).text(health+'/'+health);
+    let healthBarContainer = $('<div/>').attr({id:'healthContainer','health':health,'maxHealth':health}).addClass('noselect').text(health+'/'+health);
     return healthBarContainer;
 }
 
@@ -44,12 +45,31 @@ function takeDamage(monster,healthBar){
 }
 
 function changeMonsterColor(monster,rgb){
-    console.log(rgb);
+    //console.log(rgb);
     monster.css({'background-color': 'rgb('+rgb+')'});
 }
 
 function changeMonsterShape(monster,shape){
     monster.css({'border-radius': shape});
+}
+
+function showDamageNumber(monster,dmg){
+    let coords = {
+        top: monster.outerWidth()/2 + monster.position().top + Math.round(Math.random()*100 - 50) - 30,
+        left: monster.outerHeight()/2 + monster.position().left + Math.round(Math.random()*100 - 50) - 15
+    };
+    let damageContainer = $('<div/>')
+        .addClass('damageText noselect')
+        .text(dmg)
+        .css({
+            'left': coords.left,
+            'top': coords.top
+        })
+        .appendTo(monster);
+
+    setTimeout(function(){
+        damageContainer.remove();
+    },500);
 }
 
 function changeMonsterHealth(healthBar,health){

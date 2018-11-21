@@ -8,15 +8,39 @@
     align-content: space-around;
 }
 
+.damageText {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    z-index: 100;
+    animation: damage;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+    opacity: 1;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
+}
+
 #monster {
-    width: 400px;
-    height: 400px;
+    width: 380px;
+    height: 380px;
     border-radius: 40px 40px 40px 40px;
     background-color: rgb(75, 0, 75);
 }
 
 #healthContainer {
-    width: 400px;
+    width: 380px;
     height: 50px;
     background-image: linear-gradient(90deg, red 100%, #ddd 100%);
     border: 1px black solid;
@@ -35,4 +59,11 @@ html {
 
 body {
     background-color: #ddd;
+}
+
+@keyframes damage {
+    100% {
+        top: 150px;
+        opacity: 0;
+    }
 }

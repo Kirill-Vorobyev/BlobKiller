@@ -4,7 +4,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 31313;
 
-const server = require('./server/server.js');
+const server = require('./server/Server.js');
 const Game = require('./server/Game');
 
 app.use(express.static(__dirname+'/client'));

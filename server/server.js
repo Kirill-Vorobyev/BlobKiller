@@ -12,7 +12,7 @@ exports.run = (io,game) => {
             //console.log(socket.client.conn.remoteAddress,'monster clicked');
             game.monster.takeDamage(1);
             if(game.monster.getHealth() > 0){
-                io.emit('monster-health',game.monster.getHealth(),game.monster.getColor());
+                io.emit('monster-health',game.monster.getHealth(),game.monster.getColor(),-1);
             }else{
                 game.respawnMonster();
                 io.emit('monster-respawn',
