@@ -4,11 +4,14 @@ var socket;
 function main(){
     socket = io();
     let game = $('#game');
+    let monsterLevelContainer = makeMonsterLevelContainer();
+    game.append(monsterLevelContainer);
     let healthBar = makeHealthBarContainer();
     game.append(healthBar);
     let monster = makeMonster();
     game.append(monster);
-    monster.on('click',()=>{takeDamage(monster,healthBar);});
+    
+    monster.on('click',()=>{takeDamage();});
 
     socket.on('monster-health',(health,rgb,dmg)=>{
         changeMonsterHealth(healthBar,health);
@@ -16,16 +19,18 @@ function main(){
         showDamageNumber(monster,dmg);
     });
 
-    socket.on('monster-update',(health,maxHealth,shape,rgb)=>{
+    socket.on('monster-update',(health,maxHealth,shape,rgb,level)=>{
         updateMonsterHealth(healthBar,health,maxHealth);
         changeMonsterShape(monster,shape);
         changeMonsterColor(monster,rgb);
+        changeMonsterLevel(monsterLevelContainer,level);
     });
 
-    socket.on('monster-respawn',(health,shape,rgb)=>{
+    socket.on('monster-respawn',(health,shape,rgb,level)=>{
         respawnMonster(healthBar,health);
         changeMonsterShape(monster,shape);
         changeMonsterColor(monster,rgb);
+        changeMonsterLevel(monsterLevelContainer,level);
     });
 }
 
@@ -40,7 +45,12 @@ function makeHealthBarContainer(){
     return healthBarContainer;
 }
 
-function takeDamage(monster,healthBar){
+function makeMonsterLevelContainer(){
+    let level = $('<div/>').attr({id:'levelContainer','level':0}).addClass('monsterLevel').text('Level: 0');
+    return level;
+}
+
+function takeDamage(){
     socket.emit('monster-clicked');
 }
 
@@ -70,6 +80,10 @@ function showDamageNumber(monster,dmg){
     setTimeout(function(){
         damageContainer.remove();
     },500);
+}
+
+function changeMonsterLevel(levelContainer, newLevel){
+    levelContainer.text('Level: '+newLevel);
 }
 
 function changeMonsterHealth(healthBar,health){

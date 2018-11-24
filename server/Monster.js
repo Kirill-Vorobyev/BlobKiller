@@ -1,7 +1,8 @@
 module.exports = class Monster {
-    constructor(hp){
-        this.hp = hp;
-        this.maxHp = hp;
+    constructor(level){
+        this.level = level;
+        this.hp = this.level + Math.round(Math.random() * this.level/2) + 10;
+        this.maxHp = this.hp;
         this.borders = '';
         this.rgb = '';
         for(let i=1;i<=4;i++){
@@ -53,6 +54,10 @@ module.exports = class Monster {
 
     getHealth(){
         return this.hp;
+    }
+
+    getLevel(){
+        return this.level;
     }
 
     getMaxHealth(){
