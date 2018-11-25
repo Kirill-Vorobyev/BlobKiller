@@ -9,6 +9,8 @@ exports.run = (io,game) => {
                 game.monster.getColor(),
                 game.monster.getLevel());
 
+        io.emit('update-player-count',io.engine.clientsCount);
+
         socket.on('monster-clicked',()=>{
             //console.log(socket.client.conn.remoteAddress,'monster clicked');
             game.monster.takeDamage(1);
@@ -30,6 +32,7 @@ exports.run = (io,game) => {
 
         socket.on('disconnect', ()=>{
             console.log('Disconnect: ',socket.client.conn.remoteAddress);
+            io.emit('update-player-count',io.engine.clientsCount);
         });
     });
 }

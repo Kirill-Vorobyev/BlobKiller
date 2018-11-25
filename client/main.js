@@ -10,6 +10,8 @@ function main(){
     game.append(healthBar);
     let monster = makeMonster();
     game.append(monster);
+    let playerCountContainer = makePlayerCountContainer();
+    game.append(playerCountContainer);
     
     monster.on('click',()=>{takeDamage();});
 
@@ -32,6 +34,10 @@ function main(){
         changeMonsterColor(monster,rgb);
         changeMonsterLevel(monsterLevelContainer,level);
     });
+
+    socket.on('update-player-count',(numPlayers)=>{
+        updatePlayerCount(playerCountContainer,numPlayers);
+    });
 }
 
 function makeMonster(){
@@ -46,8 +52,13 @@ function makeHealthBarContainer(){
 }
 
 function makeMonsterLevelContainer(){
-    let level = $('<div/>').attr({id:'levelContainer','level':0}).addClass('monsterLevel').text('Level: 0');
+    let level = $('<div/>').attr({id:'monsterLevel','level':0}).addClass('monsterLevel').text('Level: 0');
     return level;
+}
+
+function makePlayerCountContainer(){
+    let playerCountContainer = $('<div/>').attr({id:'playerCount'}).addClass('playerCount').text('Players: 0');
+    return playerCountContainer;
 }
 
 function takeDamage(){
@@ -106,4 +117,8 @@ function respawnMonster(healthBar,health){
     healthBar.text(health+'/'+health);
     let healthPercentage = health/health * 100;
     healthBar.css({'background-image': 'linear-gradient(90deg, red '+healthPercentage+'%, #ddd '+healthPercentage+'%)'});
+}
+
+function updatePlayerCount(playerCountContainer,numPlayers){
+    playerCountContainer.text('Players: '+numPlayers);
 }
