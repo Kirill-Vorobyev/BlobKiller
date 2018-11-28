@@ -13,7 +13,7 @@ function main(){
     let playerCountContainer = makePlayerCountContainer();
     game.append(playerCountContainer);
     
-    monster.on('touchstart mousedown',()=>{takeDamage();});
+    monster.on('touchstart mousedown',(e)=>{takeDamage(e);});
 
     socket.on('monster-health',(health,rgb,dmg)=>{
         changeMonsterHealth(healthBar,health);
@@ -61,8 +61,10 @@ function makePlayerCountContainer(){
     return playerCountContainer;
 }
 
-function takeDamage(){
+function takeDamage(e){
     socket.emit('monster-clicked');
+    e.stopPropagation();
+    e.preventDefault();
 }
 
 function changeMonsterColor(monster,rgb){
