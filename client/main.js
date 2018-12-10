@@ -38,6 +38,10 @@ function main(){
     socket.on('update-player-count',(numPlayers)=>{
         updatePlayerCount(playerCountContainer,numPlayers);
     });
+
+    socket.on('heroData',(level,xp,xpForNextLevel)=>{
+        console.log('level: '+level+' xp: '+xp+' forNextLevel: '+xpForNextLevel);
+    })
 }
 
 function makeMonster(){
