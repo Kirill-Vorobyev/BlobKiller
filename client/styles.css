@@ -69,6 +69,28 @@
     font-weight: bold;
 }
 
+.heroLevel {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 36px;
+    color: black;
+    width: 380px;
+    margin-top: 32px;
+}
+
+#xpContainer {
+    width: 380px;
+    height: 50px;
+    background-image: linear-gradient(90deg, rgb(112, 0, 156) 100%, #ddd 100%);
+    border: 1px black solid;
+    margin-bottom: 32px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 42px;
+    color: black;
+    font-weight: bold;
+}
+
 html {
     width: 100%;
     height: 100%;

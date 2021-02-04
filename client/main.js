@@ -12,6 +12,11 @@ function main(){
     game.append(monster);
     let playerCountContainer = makePlayerCountContainer();
     game.append(playerCountContainer);
+    let heroLevelContainer = makeHeroLevelContainer();
+    game.append(heroLevelContainer);
+    let xpBarContainer = makeXpBarContainer();
+    game.append(xpBarContainer);
+    
     
     monster.on('touchstart mousedown',(e)=>{takeDamage(e);});
 
@@ -40,6 +45,8 @@ function main(){
     });
 
     socket.on('heroData',(level,xp,xpForNextLevel)=>{
+        updateHeroLevel(heroLevelContainer,level);
+        updateHeroXp(xpBarContainer,xp,xpForNextLevel);
         console.log('level: '+level+' xp: '+xp+' forNextLevel: '+xpForNextLevel);
     })
 }
@@ -63,6 +70,17 @@ function makeMonsterLevelContainer(){
 function makePlayerCountContainer(){
     let playerCountContainer = $('<div/>').attr({id:'playerCount'}).addClass('playerCount').text('Players: 0');
     return playerCountContainer;
+}
+
+function makeHeroLevelContainer(){
+    let level = $('<div/>').attr({id:'heroLevel','level':0}).addClass('heroLevel').text('Your Level: 1');
+    return level;
+}
+
+function makeXpBarContainer(){
+    let xp = 0;
+    let xpBarContainer = $('<div/>').attr({id:'xpContainer','xp':xp,'maxXp':1}).addClass('noselect').text(xp+'/'+1);
+    return xpBarContainer;
 }
 
 function takeDamage(e){
@@ -100,7 +118,7 @@ function showDamageNumber(monster,dmg){
 }
 
 function changeMonsterLevel(levelContainer, newLevel){
-    levelContainer.text('Level: '+newLevel);
+    levelContainer.text('Monster Level: '+newLevel);
 }
 
 function changeMonsterHealth(healthBar,health){
@@ -127,4 +145,15 @@ function respawnMonster(healthBar,health){
 
 function updatePlayerCount(playerCountContainer,numPlayers){
     playerCountContainer.text('Players: '+numPlayers);
+}
+
+function updateHeroLevel(heroLevelContainer,newLevel){
+    heroLevelContainer.text('Your Level: '+newLevel);
+}
+
+function updateHeroXp(xpBarContainer,xp,xpForNextLevel){
+    xpBarContainer.attr({'xp':xp,'maxXp':xpForNextLevel});
+    xpBarContainer.text(xp+'/'+xpForNextLevel);
+    let percentage = xp/xpForNextLevel * 100;
+    xpBarContainer.css({'background-image': 'linear-gradient(90deg, rgb(112, 0, 156) '+percentage+'%, #ddd '+percentage+'%)'});
 }
